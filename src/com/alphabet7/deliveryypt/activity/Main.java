@@ -113,19 +113,22 @@ public class Main extends Activity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.ib_send:
-				ibSend.setEnabled(false);
-				Toast.makeText(Main.this, "Mengirim...", Toast.LENGTH_SHORT)
-						.show();
-
-				SmsManager sms = SmsManager.getDefault();
-
 				String recipient = etRecipient.getText().toString();
 				String message = etSms.getText().toString();
-				message += "\n\nDeliveryYPT for Android\nhttp://bit.ly/deliveryYPT";
 
-				sms.sendTextMessage(recipient, null, message, PendingIntent
-						.getBroadcast(Main.this, 0,
-								new Intent(ACTION_SMS_SENT), 0), null);
+				if (!recipient.equals("") && !message.equals("")) {
+					ibSend.setEnabled(false);
+					Toast.makeText(Main.this, "Mengirim...", Toast.LENGTH_SHORT)
+							.show();
+
+					SmsManager sms = SmsManager.getDefault();
+
+					message += "\n\nDeliveryYPT for Android\nhttp://bit.ly/deliveryYPT";
+
+					sms.sendTextMessage(recipient, null, message, PendingIntent
+							.getBroadcast(Main.this, 0, new Intent(
+									ACTION_SMS_SENT), 0), null);
+				}
 				break;
 			}
 		}
